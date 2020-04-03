@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block head %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{ name }}'s WatchList</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}">
+    {% endblock %}
+</head>
+<body>
+    <h2>{{user.name}}'s WatchList</h2>
+    <img src="" alt="">
+    <nav>
+        <ul>
+            <li><a href="{{url_for('index')}}"></a></li>
+        </ul>
+    </nav>
+
+    {% block content %}{% endblock %}
+    <footer>
+        <small>&copy;2020 <a href="#">1901电影列表</a> </small>
+    </footer>
+</body>
+</html>
