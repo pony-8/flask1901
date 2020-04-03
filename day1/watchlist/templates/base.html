@@ -10,8 +10,14 @@
     {% endblock %}
 </head>
 <body>
+    <img class="img"src="" alt="">
     <h2>{{user.name}}'s WatchList</h2>
-    <img src="" alt="">
+    
+    <!-- 添加提示信息 -->
+    {% for message in get_flashed_messages() %}
+        <div class="alert">{{ message }}</div>
+    {% endfor %}
+    
     <nav>
         <ul>
             <li><a href="{{url_for('index')}}"></a></li>
