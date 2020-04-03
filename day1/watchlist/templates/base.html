@@ -23,6 +23,19 @@
             <li><a href="{{url_for('index')}}"></a></li>
         </ul>
     </nav>
+    <nav>
+        <ul>
+            <li>
+                <a href="{{url_for('index')}}">首页</a>
+            </li>
+            <li>
+                <a href="{{url_for('login')}}">登录</a>
+            </li>
+            <li>
+                <a href="{{url_for('logout')}}">退出</a>
+            </li>
+        </ul>
+    </nav>
 
     {% block content %}{% endblock %}
     <footer>
