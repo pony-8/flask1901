@@ -4,7 +4,7 @@ from flask import render_template,flash,redirect,request,url_for
 from werkzeug.security import generate_password_hash,check_password_hash
 from flask_sqlalchemy import SQLAlchemy     #导入扩展类
 import click
-from flask_login import LoginManager,UserMixin,login_user,logout_user,login_required
+from flask_login import LoginManager,UserMixin,login_user,logout_user,login_required,current_user
 
 
 WIN = sys.platform.startswith('win')
@@ -53,10 +53,11 @@ def common_user():
 
 #views    添加
 @app.route('/',methods=['GET','POST'])
-# @app.route('/index') 
-# @app.route('/home')
 def index():    
     if request.method == 'POST':
+        if not current_user.is_authenticated:
+            return redirect(url_for('index'))
+
         # request在请求触发的时候才会包含数据
         title = request.form.get('title')
         year = request.form.get('year')
@@ -135,6 +136,23 @@ def logout():
     logout_user()
     flash('拜拜')
     return redirect(url_for('index'))
+
+#settings 设置
+@app.route('/settings',methods=['GET','POST'])
+@login_required
+def settings():
+    if request.method == 'POST':
+        name = request.form['name']
+        if not name or len(name) > 20:
+            flash('输入错误')
+            return redirect(url_for('settings'))
+
+        current_user.name = name
+        db.session.commit()
+        flash('名称已经更新')
+        return redirect(url_for('index'))
+
+    return render_template('settings.html')
 
 
 # 自定义命令

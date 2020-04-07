@@ -10,12 +10,13 @@
 
 <ul class="movie-list">
     {% for movie in movies %}
-    <li>{{movie.title}} - {{movie.year}}
+    <li>
+        {{movie.title}} - {{movie.year}}
 
         <span class='float-right'>
             <a href="http://v.baidu.com/v?word={{ movie.title }}&ct=301989888&rn=67&pn=0&db=0&s=0&fbl=800&ie=utf-8" class="baidu" target="_blank" title="在百度视频中查找">百度视频</a>
         </span>
-
+        {% if current_user.is_authenticated %}
         <span class="float-right">
             <a class="btn" href="{{url_for('edit',movie_id=movie.id)}}">编辑</a>
         </span>
@@ -25,7 +26,7 @@
                 <input class="btn" type="submit" name="delete" value="删除" onclick="return confirm('确定要删除吗？')">
             </form>
         </span>
-        
+        {% endif %}
     </li>
     {% endfor %}
 </ul>
